@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Code Wars Crossed Wars Kata</title>
+		<script type="text/javascript"/>
+			function crossedwords(str1, str2){
+				var lenstr1 = str1.length;
+				var lenstr2 = str2.length;
+				
+				var lenstr1_floor =  Math.floor(lenstr1/2);
+				var lenstr2_floor =  Math.floor(lenstr2/2);
+				
+				var matrix = createMatrix(lenstr1 + 1, lenstr2 + 1);
+				
+				output(lenstr1 + ' ' + lenstr2 + ' : ' + lenstr1_floor + ' ' + lenstr2_floor);
+			
+				fillMatrix(matrix, lenstr1, lenstr2);
+				
+				printMatrix(matrix, lenstr1, lenstr2);
+				
+				placeFirstWord(str1, matrix, lenstr1, lenstr1_floor);
+				
+				placeSecondWord(str2, matrix, lenstr2, lenstr2_floor);
+				
+				printMatrix(matrix, lenstr1, lenstr2);
+			}
+			
+			function placeFirstWord(str1, matrix, len1, lenstr1_floor){
+				for(var i=0; i<len1; i++){					
+					matrix[lenstr1_floor][i] = str1[i];
+				}
+			}
+			
+			function placeSecondWord(str2, matrix, len2, lenstr2_floor){
+				for(var i=0; i<len2; i++){					
+					matrix[i][lenstr2_floor] = str2[i];
+				}
+			}
+			
+			function createMatrix(len1, len2){
+				var matrix;
+				
+				matrix = new Array(len1);
+				
+				for (var i = 0; i < len1; i++) {
+					matrix[i] = new Array(len2);
+				}
+				
+				return matrix;
+			}
+			
+			function fillMatrix(matrix, len1, len2){
+				for(var i=0; i<len1; i++){
+					for(var j=0; j<len1; j++){
+						matrix[i][j] = 'X';//X
+					}
+				}
+			}
+			
+			function printMatrix(matrix, len1, len2){
+				clearOutputMatrixBuffer();
+				
+				for(var i=0; i<len1; i++){
+					for(var j=0; j<len1; j++){
+						outputMatrix(matrix[i][j]);
+					}
+					outputMatrix('\n');
+				}
+			}
+			
+			function clearOutputMatrixBuffer(){
+				var elem = document.getElementById('output_matrix');
+				
+				elem.innerText = '';
+			}
+			
+			function outputMatrix(message){
+				var elem = document.getElementById('output_matrix');
+				
+				elem.innerText = elem.innerText + '|' + message;//|
+			}
+			
+			function output(message){
+				var elem = document.getElementById('output');
+				
+				elem.innerText = elem.innerText + '\n' + message;
+			}
+		</script>
+	</head>
+	<body>
+		<form>
+			<input type='button' onClick='crossedwords("JULIAN","ANDRES")' value='crossedwords'>
+		</form>
+		<div id='output'>
+		</div>
+		<div id='output_matrix'>
+		</div>
+	</body>
+</html>
